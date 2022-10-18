@@ -1,24 +1,18 @@
+import type { RequestOptionsInit, ResponseError } from "umi-request";
 import { extend } from "umi-request";
 import { showDialog, showLoadingToast } from "vant";
 import type { ComponentPublicInstance } from "vue";
 
-import type {
-  FetchRequestInterceptor,
-  FetchResponseError,
-  FetchResponseInterceptor,
-} from "@/api";
-
-import { FETCH_CODE_ENUM, FETCH_TIMEOUT } from "./";
+import { FETCH_CODE_ENUM, FETCH_TIMEOUT, isVoid } from "./";
 
 // https://github.com/youzan/vant/blob/HEAD/packages/vant/src/utils/basic.ts#L12
 // eslint-disable-next-line @typescript-eslint/ban-types
 let toast: ComponentPublicInstance<{}, any>;
 
-const requestInterceptor: FetchRequestInterceptor = (url, options) => {
+const requestInterceptor = (url: string, options: RequestOptionsInit) => {
   options.prefix = options.prefix || import.meta.env.VITE_APP_BASE_API;
   options.loading = options.loading || false;
-  // TODO: 待优化
-  options.errorTips = options.errorTips || true;
+  options.errorTips = isVoid(options.errorTips) ? true : options.errorTips;
   if (options.loading) {
     toast = showLoadingToast({
       message: "加载中...",
@@ -32,30 +26,28 @@ const requestInterceptor: FetchRequestInterceptor = (url, options) => {
   };
 };
 
-const responseInterceptor: FetchResponseInterceptor = async (
-  response,
-  options
+const responseInterceptor = async (
+  response: Response,
+  options: RequestOptionsInit
 ) => {
   if (response.ok) {
     options.loading && toast.close();
     const { code, msg } = await response.clone().json();
-    if (parseInt(code) !== 0) {
-      response.__code = parseInt(code);
+    if (String(code) !== "0") {
+      response.__code = code;
       response.__msg = msg;
-      response.__prompt = response.__msg;
       return Promise.reject({ response });
     } else {
       return response;
     }
   } else {
-    response.__code = response.status;
+    response.__code = String(response.status);
     response.__msg = FETCH_CODE_ENUM[response.status];
-    response.__prompt = response.__msg;
     return Promise.reject({ response });
   }
 };
 
-const errorHandler = (error: FetchResponseError) => {
+const errorHandler = (error: ResponseError) => {
   const { response, request } = error;
   request.options?.loading && toast.close();
 
@@ -63,7 +55,7 @@ const errorHandler = (error: FetchResponseError) => {
     let tipMsg: string;
 
     if (response && response.__code) {
-      tipMsg = `<p>错误信息：${response.__prompt}</p><p>错误码：${response.__code}</p>`;
+      tipMsg = `<p>错误信息：${response.__msg}</p><p>错误码：${response.__code}</p>`;
     } else {
       tipMsg = "您的网络异常，无法连接到服务器";
     }

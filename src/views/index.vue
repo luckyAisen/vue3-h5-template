@@ -32,16 +32,20 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { ref, unref } from "vue";
 
 import { useAppStore } from "@/stores/modules/app";
 
-const $appStore = useAppStore();
+const appStore = useAppStore();
 
-const darkMode = ref($appStore.theme === "dark");
+const { theme } = storeToRefs(appStore);
+
+const darkMode = ref(theme.value === "dark");
 
 const changeTheme = () => {
-  $appStore.toggleTheme();
+  const t = unref(theme) === "light" ? "dark" : "light";
+  appStore.toggleTheme(t);
 };
 </script>
 

@@ -1,13 +1,10 @@
 <template>
-  <van-config-provider
-    :theme="theme"
-    style="padding-bottom: var(--van-tabbar-height)"
-  >
+  <van-config-provider :theme="theme" :style="containerStyles">
     <div class="van-safe-area-top van-safe-area-bottom app-container">
       <div class="layout-content">
         <router-view></router-view>
       </div>
-      <div v-if="$route.meta.showTab" class="layout-footer">
+      <div v-if="hasTab" class="layout-footer">
         <tab-bar :option="tabberOption" @tabbar-change="handleChange" />
       </div>
     </div>
@@ -23,17 +20,31 @@ export default {
 <script lang="ts" setup>
 import { storeToRefs } from "pinia";
 import type { TabbarItemProps } from "vant";
+import { computed, unref } from "vue";
 import { RouterView, useRoute } from "vue-router";
 
 import { useAppStore } from "@/stores/modules/app";
 
 import TabBar, { type Props as TabberProps } from "./components/TabBar.vue";
 
-const $route = useRoute();
+const route = useRoute();
 
-const $appStore = useAppStore();
+const appStore = useAppStore();
 
-const { theme } = storeToRefs($appStore);
+appStore.watchTheme();
+
+const { theme } = storeToRefs(appStore);
+
+const hasTab = computed(() => route.meta.showTab);
+
+const containerStyles = computed(() => {
+  const styles = {};
+  if (unref(hasTab)) {
+    styles["padding-bottom"] = "var(--van-tabbar-height)";
+  }
+
+  return styles;
+});
 
 const tabberOption: TabberProps["option"] = [
   {
@@ -69,12 +80,12 @@ const handleChange = (v: TabbarItemProps["name"]) => {
   line-height: 1.5;
   word-wrap: break-word;
 
-  :deep(a) {
+  :deep a {
     color: var(--app-primary-color);
   }
 
-  :deep(ol),
-  :deep(ul) {
+  :deep ol,
+  :deep ul {
     list-style: disc;
     padding-left: 32px;
   }

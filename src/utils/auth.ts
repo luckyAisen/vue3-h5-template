@@ -68,3 +68,15 @@ export const serializers: Record<
     write: (v: any) => v.toISOString(),
   },
 };
+
+/**
+ * 是否为无效值或者空字符串
+ */
+export const isVoid = (v: any) => {
+  return (
+    v === undefined ||
+    v === "" ||
+    v === null ||
+    (typeof v === "string" && v.trim() === "")
+  );
+};
