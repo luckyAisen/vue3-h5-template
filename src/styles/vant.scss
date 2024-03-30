@@ -1,0 +1,13 @@
+/**
+ 解决 tailwind css base 中设置的 button 的 background-color 问题
+*/
+.van-action-bar-button--warning {
+  background: var(--van-action-bar-button-warning-color) !important;
+}
+
+/**
+ 解决 tailwind css base 中设置的 button 的 background-color 问题
+*/
+.van-action-bar-button--danger {
+  background: var(--van-action-bar-button-danger-color) !important;
+}

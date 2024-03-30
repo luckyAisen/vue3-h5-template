@@ -1,9 +1,9 @@
-import type { RequestOptionsInit, ResponseError } from "umi-request";
-import { extend } from "umi-request";
-import { showDialog, showLoadingToast } from "vant";
-import type { ComponentPublicInstance } from "vue";
+import type { RequestOptionsInit, ResponseError } from 'umi-request';
+import { extend } from 'umi-request';
+import { showDialog, showLoadingToast } from 'vant';
+import type { ComponentPublicInstance } from 'vue';
 
-import { FETCH_CODE_ENUM, FETCH_TIMEOUT, isVoid } from "./";
+import { FETCH_CODE_ENUM, FETCH_TIMEOUT, isVoid } from './';
 
 // https://github.com/youzan/vant/blob/HEAD/packages/vant/src/utils/basic.ts#L12
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -15,31 +15,30 @@ const requestInterceptor = (url: string, options: RequestOptionsInit) => {
   options.errorTips = isVoid(options.errorTips) ? true : options.errorTips;
   if (options.loading) {
     toast = showLoadingToast({
-      message: "加载中...",
+      message: '加载中...',
       forbidClick: true,
-      duration: 0,
+      duration: 0
     });
   }
   return {
     url,
-    options: { ...options, interceptors: true },
+    options: { ...options, interceptors: true }
   };
 };
 
-const responseInterceptor = async (
-  response: Response,
-  options: RequestOptionsInit
-) => {
+const responseInterceptor = async (response: Response, options: RequestOptionsInit) => {
   if (response.ok) {
     options.loading && toast.close();
-    const { code, msg } = await response.clone().json();
-    if (String(code) !== "0") {
-      response.__code = code;
-      response.__msg = msg;
-      return Promise.reject({ response });
-    } else {
-      return response;
-    }
+    return await response.clone().json();
+
+    // const { code, msg } = await response.clone().json();
+    // if (String(code) !== '0') {
+    //   response.__code = code;
+    //   response.__msg = msg;
+    //   return Promise.reject({ response });
+    // } else {
+    //   return response;
+    // }
   } else {
     response.__code = String(response.status);
     response.__msg = FETCH_CODE_ENUM[response.status];
@@ -48,7 +47,7 @@ const responseInterceptor = async (
 };
 
 const errorHandler = (error: ResponseError) => {
-  const { response, request } = error;
+  const { response, request, type } = error;
   request.options?.loading && toast.close();
 
   if (request.options.errorTips) {
@@ -56,15 +55,17 @@ const errorHandler = (error: ResponseError) => {
 
     if (response && response.__code) {
       tipMsg = `<p>错误信息：${response.__msg}</p><p>错误码：${response.__code}</p>`;
+    } else if (type === 'AbortError') {
+      tipMsg = '用户取消请求';
     } else {
-      tipMsg = "您的网络异常，无法连接到服务器";
+      tipMsg = '您的网络异常，无法连接到服务器';
     }
 
     showDialog({
-      title: "提示",
+      title: '提示',
       allowHtml: true,
-      theme: "round-button",
-      message: tipMsg,
+      theme: 'round-button',
+      message: tipMsg
     });
   }
 
@@ -74,7 +75,7 @@ const errorHandler = (error: ResponseError) => {
 const request = extend({
   prefix: import.meta.env.VITE_APP_BASE_API,
   timeout: FETCH_TIMEOUT,
-  errorHandler,
+  errorHandler
 });
 
 request.interceptors.request.use(requestInterceptor);

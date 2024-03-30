@@ -1,4 +1,4 @@
-import type { RequestOptionsInit, ResponseError } from "umi-request";
+import type { RequestOptionsInit, ResponseError } from 'umi-request';
 
 export interface FecthRequestOptions extends RequestOptionsInit {
   loading?: boolean;
@@ -7,7 +7,7 @@ export interface FecthRequestOptions extends RequestOptionsInit {
 }
 
 export interface FetchResponse extends Response {
-  __code?: number;
+  __code?: string;
   __msg?: string;
   __prompt?: string;
 }

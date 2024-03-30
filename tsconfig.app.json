@@ -1,5 +1,5 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "composite": true,
     "target": "esnext",
@@ -24,10 +24,11 @@
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
-      "#/*": ["./types/*"],
-    },
+      "#/*": ["./types/*"]
+    }
   },
   "include": [
+    "src/**/*",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",

@@ -1,4 +1,4 @@
-export * from "./request";
+export * from './request';
 
 export type FetchData<T> = {
   code?: number;

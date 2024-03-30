@@ -29,7 +29,7 @@ interface ImportMetaEnv {
   /**
    * @description 是否启用 gzip 或 brotli 压缩
    */
-  readonly VITE_APP_BUILD_COMPRESS: "gzip" | "brotli" | "none";
+  readonly VITE_APP_BUILD_COMPRESS: 'gzip' | 'brotli' | 'none';
   /**
    * @description 使用压缩时是否删除源文件
    */

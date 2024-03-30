@@ -42,8 +42,7 @@ export const RegExpURL =
  * @example
  * 91230184MA1BUFLT44,92371000MA3MXH0E3W
  */
-export const RegExpSocialCreditCodeStrict =
-  /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
+export const RegExpSocialCreditCodeStrict = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
 
 /**
  * 统一社会信用代码(宽松匹配)(15位/18位/20位数字/字母)
@@ -51,8 +50,7 @@ export const RegExpSocialCreditCodeStrict =
  * @example
  * 91110108772551611J,911101085923662400
  */
-export const RegExpSocialCreditCode =
-  /^(([0-9A-Za-z]{15})|([0-9A-Za-z]{18})|([0-9A-Za-z]{20}))$/;
+export const RegExpSocialCreditCode = /^(([0-9A-Za-z]{15})|([0-9A-Za-z]{18})|([0-9A-Za-z]{20}))$/;
 
 /**
  * 迅雷链接
@@ -318,8 +316,7 @@ export const RegExpMobilePhoneLoose = /^(?:(?:\+|00)86)?1\d{10}$/;
  * @example
  * 1990-12-12,1-1-1,0000-1-1
  */
-export const RegExpRungDate =
-  /^\d{1,4}(-)(1[0-2]|0?[1-9])\1(0?[1-9]|[1-2]\d|30|31)$/;
+export const RegExpRungDate = /^\d{1,4}(-)(1[0-2]|0?[1-9])\1(0?[1-9]|[1-2]\d|30|31)$/;
 
 /**
  * 可以被moment转化成功的时间 YYYYMMDD HH:mm:ss
@@ -345,8 +342,7 @@ export const RegExpEmail =
  * @example
  * 0936-4211235,89076543,010-12345678-1234
  */
-export const RegExpTelPhone =
-  /^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$/;
+export const RegExpTelPhone = /^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$/;
 
 /**
  * 身份证号(1代,15位数字)
@@ -354,8 +350,7 @@ export const RegExpTelPhone =
  * @example
  * 123456991010193
  */
-export const RegExp1IdNumber =
-  /^[1-9]\d{7}(?:0\d|10|11|12)(?:0[1-9]|[1-2][\d]|30|31)\d{3}$/;
+export const RegExp1IdNumber = /^[1-9]\d{7}(?:0\d|10|11|12)(?:0[1-9]|[1-2][\d]|30|31)\d{3}$/;
 
 /**
  * 身份证号(2代,18位数字),最后一位是校验位,可能为数字或字符X
@@ -556,8 +551,7 @@ export const RegExpJavaPackageName = /^([a-zA-Z_]\w*)+([.][a-zA-Z_]\w*)+$/;
  * @example
  * 38:f9:d3:4b:f5:51,00-0C-29-CA-E4-66
  */
-export const RegExpMac =
-  /^((([a-f0-9]{2}:){5})|(([a-f0-9]{2}-){5}))[a-f0-9]{2}$/i;
+export const RegExpMac = /^((([a-f0-9]{2}:){5})|(([a-f0-9]{2}-){5}))[a-f0-9]{2}$/i;
 
 /**
  * 匹配连续重复的字符
@@ -646,5 +640,4 @@ export const RegExpFloatingNumber = /^(-?\d+)(\.\d+)?$/;
  * @example
  * 90203918@qq.com,nbilly@126.com,啦啦啦@126.com
  */
-export const RegExpEmailLoose =
-  /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+export const RegExpEmailLoose = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
