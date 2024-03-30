@@ -1,4 +1,4 @@
-import { serializers, serializerType } from "@/utils";
+import { serializers, serializerType } from '@/utils';
 
 export const useWebStorage = (s: Storage = window.localStorage) => {
   const getStorage = <T>(key: string): T | null => {
@@ -30,6 +30,6 @@ export const useWebStorage = (s: Storage = window.localStorage) => {
     getStorage,
     setStorage,
     clearStorage,
-    clearWebCache,
+    clearWebCache
   };
 };

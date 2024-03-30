@@ -1,0 +1,13 @@
+/**
+  解决 tailwind css base 中设置的 button 的 background-color 问题，使用 @unocss/reset，官网：https://unocss.dev/guide/style-reset#tailwind-compat
+
+  下面是一些资料和其他解决方案：
+  1、https://github.com/tailwindlabs/tailwindcss/discussions/5969
+  2、https://github.com/unocss/unocss/issues/2127
+  3、https://www.whidy.net/vite-use-elementplus-and-tailwindcss-best-practice-1st
+*/
+// @tailwind base;
+@import '@unocss/reset/tailwind-compat.css';
+
+@tailwind components;
+@tailwind utilities;

@@ -1,24 +1,23 @@
-@import "normalize.css/normalize.css";
-@import "./vars.less";
-
 *,
 *::before,
 *::after {
   box-sizing: border-box; /* 修改默认盒模型 */
   text-size-adjust: 100%; /* IOS 横屏时默认字体为140%；旋转屏幕时，字体大小不变 */
-  -webkit-tap-highlight-color: rgb(
-    0 0 0 / 0%
-  ); /* 修正 IOS 和 Android 可点击元素的高亮颜色 */
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%); /* 修正 IOS 和 Android 可点击元素的高亮颜色 */
   /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
   -webkit-tap-highlight-color: transparent; /* i.e. Nexus5/Chrome and Kindle Fire HD 7'' */
   -webkit-touch-callout: none;
 }
 
 html,
-body,
+body {
+  height: 100%;
+  background-color: var(--vt-color-bg-1);
+  color: var(--vt-color-text-1);
+  font-family: var(--vt-font-family);
+  font-size: 28px;
+}
+
 #app {
   height: 100%;
-  font-family: var(--van-base-font);
-  background-color: var(--app-theme-background-color-body);
-  color: var(--app-theme-text-color-1);
 }

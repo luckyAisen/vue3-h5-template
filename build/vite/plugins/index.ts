@@ -1,48 +1,49 @@
-import vue from "@vitejs/plugin-vue";
-import vueJsx from "@vitejs/plugin-vue-jsx";
-import type { PluginOption } from "vite";
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
-import { configComponentsPlugin } from "./components";
-import { configCompressPlugin } from "./compress";
-import { configHtmlPlugin } from "./html";
-import { configLegacyPlugin } from "./legacy";
-import { configMarkdownPlugin } from "./markdown";
-import { configSetupExtendsPlugin } from "./setup-extend";
-import { configVConsolePlugin } from "./v-console";
+import type { PluginOption } from 'vite';
+
+import { configAutoImport } from './auto-import';
+import { configComponentsPlugin } from './components';
+import { createSvgIconsPlugin } from './svg-icons';
+import { configVConsolePlugin } from './v-console';
+import { configVueDevToolsPlugin } from './vue-devtools';
+import { configHtmlPlugin } from './html';
+import { configCompressPlugin } from './compress';
 
 export const createVitePlugins = (env: ViteEnv, isBuild: boolean) => {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     vue({
-      include: [/\.vue$/, /\.md$/],
+      include: [/\.vue$/, /\.md$/]
     }),
-    vueJsx(),
+    vueJsx()
   ];
+  /**
+   * unplugin-auto-import/vite'
+   */
+  vitePlugins.push(configAutoImport());
+  /**
+   * unplugin-vue-components/vite
+   */
+  vitePlugins.push(configComponentsPlugin());
+  /**
+   * vite-plugin-svg-icons
+   */
+  vitePlugins.push(createSvgIconsPlugin());
+  /**
+   * vite-plugin-vconsole
+   */
+  vitePlugins.push(configVConsolePlugin(env));
+  /**
+   * vite-plugin-vue-devtools
+   */
+  vitePlugins.push(configVueDevToolsPlugin());
   /**
    * vite-plugin-html
    */
   vitePlugins.push(configHtmlPlugin(env, isBuild));
-  /**
-   * unplugin-vue-components
-   */
-  vitePlugins.push(configComponentsPlugin());
-  /**
-   * vite-plugin-vconsole
-   */
-  vitePlugins.push(configVConsolePlugin(env, isBuild));
-  /**
-   * vite-plugin-md
-   */
-  vitePlugins.push(configMarkdownPlugin());
-  /**
-   * unplugin-vue-setup-extend-plus
-   */
-  vitePlugins.push(configSetupExtendsPlugin());
 
   if (isBuild) {
-    /**
-     * @vitejs/plugin-legacy
-     */
-    vitePlugins.push(configLegacyPlugin(isBuild));
     /**
      * vite-plugin-compression
      */

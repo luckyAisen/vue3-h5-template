@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { RequestOptionsInit, Response, ResponseError } from "umi-request";
+import type { RequestOptionsInit, Response, ResponseError } from 'umi-request';
 
-declare module "umi-request" {
+declare module 'umi-request' {
   export interface RequestOptionsInit {
     /**
      * @description 是否在请求时加载 loading

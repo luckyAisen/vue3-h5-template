@@ -1,0 +1,28 @@
+{
+  "editor.tabSize": 2,
+
+  // "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    ".env": ".env*",
+    "package.json": "README.md,pnpm-lock.yaml,.npmrc",
+    "tsconfig.json": ".editorconfig,.gitignore,tsconfig*,.eslint*,.prettier*,stylelint.config.cjs,.stylelintignore,postcss.config.js,tailwind.config.js"
+  },
+
+  // "[vue]": {
+  //   "editor.codeActionsOnSave": {
+  //     "source.fixAll.eslint": "explicit",
+  //     "source.fixAll.stylelint": "explicit"
+  //   },
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode"
+  // }
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  },
+  "stylelint.snippet": ["css", "less", "postcss", "vue", "sass"],
+  "stylelint.validate": ["css", "less", "postcss", "vue", "sass"]
+}

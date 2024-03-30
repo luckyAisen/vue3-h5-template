@@ -1,1 +1,1 @@
-export * from "./useWebStorage";
+export * from './useWebStorage';

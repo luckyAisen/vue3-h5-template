@@ -1,12 +1,9 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
-const DATE_FORMAT = "YYYY-MM-DD";
-const DATE_TIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
+const DATE_FORMAT = 'YYYY-MM-DD';
+const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
-export const formatToDate = (
-  date: any | undefined = undefined,
-  format = DATE_FORMAT
-): string => {
+export const formatToDate = (date: any | undefined = undefined, format = DATE_FORMAT): string => {
   return dayjs(date).format(format);
 };
 

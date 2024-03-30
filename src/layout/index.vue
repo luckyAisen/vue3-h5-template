@@ -5,27 +5,56 @@
         <router-view></router-view>
       </div>
       <div v-if="hasTab" class="layout-footer">
-        <tab-bar :option="tabberOption" @tabbar-change="handleChange" />
+        <TabBar :option="tabberOption" @tabbar-change="handleChange">
+          <template #nav-home="{ props }">
+            <SvgIcon
+              name="nav-home"
+              :color="
+                props.active
+                  ? 'var(--van-tabbar-item-active-color) '
+                  : 'var(--van-tabbar-item-text-color)'
+              "
+            />
+          </template>
+
+          <template #nav-theme="{ props }">
+            <SvgIcon
+              :name="appStore.theme === 'dark' ? 'nav-light' : 'nav-dark'"
+              :color="
+                props.active
+                  ? 'var(--van-tabbar-item-active-color) '
+                  : 'var(--van-tabbar-item-text-color)'
+              "
+            />
+          </template>
+
+          <template #nav-fetch="{ props }">
+            <SvgIcon
+              name="nav-fetch"
+              :color="
+                props.active
+                  ? 'var(--van-tabbar-item-active-color) '
+                  : 'var(--van-tabbar-item-text-color)'
+              "
+            />
+          </template>
+        </TabBar>
       </div>
     </div>
   </van-config-provider>
 </template>
 
-<script lang="ts">
-export default {
-  name: "LayoutIndex",
-};
-</script>
-
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
-import type { TabbarItemProps } from "vant";
-import { computed, unref } from "vue";
-import { RouterView, useRoute } from "vue-router";
+import { storeToRefs } from 'pinia';
+import { useAppStore } from '@/stores/modules/app';
+import TabBar from './components/TabBar/index.vue';
 
-import { useAppStore } from "@/stores/modules/app";
+import type { TabbarItemProps } from 'vant';
+import type { LayoutNavProps } from './components/TabBar/type';
 
-import TabBar, { type Props as TabberProps } from "./components/TabBar.vue";
+defineOptions({
+  name: 'Layout'
+});
 
 const route = useRoute();
 
@@ -40,54 +69,39 @@ const hasTab = computed(() => route.meta.showTab);
 const containerStyles = computed(() => {
   const styles = {};
   if (unref(hasTab)) {
-    styles["padding-bottom"] = "var(--van-tabbar-height)";
+    styles['padding-bottom'] = 'var(--van-tabbar-height)';
   }
 
   return styles;
 });
 
-const tabberOption: TabberProps["option"] = [
+const tabberOption: LayoutNavProps['option'] = [
   {
-    title: "文档",
-    icon: "home-o",
+    title: '主页',
+    name: 'nav-home',
     to: {
-      name: "Home",
-    },
+      name: 'Home'
+    }
   },
   {
-    title: "主题",
-    icon: "setting-o",
+    title: '请求',
+    name: 'nav-fetch',
     to: {
-      name: "Theme",
-    },
+      name: 'Fetch'
+    }
   },
+  {
+    title: '主题',
+    name: 'nav-theme',
+    to: {
+      name: 'Theme'
+    }
+  }
 ];
 
-const handleChange = (v: TabbarItemProps["name"]) => {
-  console.log("tabbar name:", v);
+const handleChange = (v: TabbarItemProps['name']) => {
+  console.log('tabbar name:', v);
 };
 </script>
 
-<style lang="less" scoped>
-@import "@/styles/github-markdown-light.less";
-@import "@/styles/github-markdown-dark.less";
-
-.markdown-body {
-  background-color: var(--app-background) !important;
-  padding: 32px;
-  word-break: break-all;
-  font-size: 32px !important;
-  line-height: 1.5;
-  word-wrap: break-word;
-
-  :deep a {
-    color: var(--app-primary-color);
-  }
-
-  :deep ol,
-  :deep ul {
-    list-style: disc;
-    padding-left: 32px;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
