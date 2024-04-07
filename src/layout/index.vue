@@ -17,6 +17,17 @@
             />
           </template>
 
+          <template #nav-info="{ props }">
+            <SvgIcon
+              name="nav-info"
+              :color="
+                props.active
+                  ? 'var(--van-tabbar-item-active-color) '
+                  : 'var(--van-tabbar-item-text-color)'
+              "
+            />
+          </template>
+
           <template #nav-theme="{ props }">
             <SvgIcon
               :name="appStore.theme === 'dark' ? 'nav-light' : 'nav-dark'"
@@ -81,6 +92,13 @@ const tabberOption: LayoutNavProps['option'] = [
     name: 'nav-home',
     to: {
       name: 'Home'
+    }
+  },
+  {
+    title: '项目信息',
+    name: 'nav-info',
+    to: {
+      name: 'Info'
     }
   },
   {

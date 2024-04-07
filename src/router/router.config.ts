@@ -14,6 +14,12 @@ export const routes: RouteRecordRaw[] = [
         meta: { title: '主页', showTab: true }
       },
       {
+        path: '/info',
+        name: 'Info',
+        component: () => import('@/views/info.vue'),
+        meta: { title: '项目', showTab: true }
+      },
+      {
         path: '/fetch',
         name: 'Fetch',
         component: () => import('@/views/fetch.vue'),
