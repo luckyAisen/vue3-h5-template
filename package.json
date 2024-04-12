@@ -30,6 +30,7 @@
     "build:sit": "npm run type-check && vite build --mode sit",
     "build:uat": "npm run type-check && vite build --mode uat",
     "build:prod": "npm run type-check && vite build",
+    "build:deploy": "npm run type-check && vite build --mode deploy",
     "preview": "vite preview --port 4173",
     "type-check": "vue-tsc --noEmit",
     "lint:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",

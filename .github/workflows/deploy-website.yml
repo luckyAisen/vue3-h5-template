@@ -1,37 +1,23 @@
-name: Deploy Site By main Branch
+name: Deploy site by main branch to server
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-  schedule:
-    - cron: "0 21 * * *"
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+  main-branch-deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout main branch code
-        uses: actions/checkout@v3
+      - name: Deploy
+        uses: appleboy/ssh-action@master
         with:
-          ref: main
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy gh page
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GH_PAGES }}
-          publish_dir: ./dist
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /opt/cxs/vue3-h5-template
+            git pull origin main
+            pnpm install
+            npm run build:deploy
