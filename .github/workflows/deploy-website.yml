@@ -18,6 +18,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd /opt/cxs/vue3-h5-template
+            git checkout types/components.d.ts
+            git checkout types/auto-imports.d.ts
             git pull origin main
             pnpm install
             npm run build:deploy
