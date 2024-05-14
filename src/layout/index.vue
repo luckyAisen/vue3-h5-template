@@ -30,7 +30,7 @@
 
           <template #nav-theme="{ props }">
             <SvgIcon
-              :name="appStore.theme === 'dark' ? 'nav-light' : 'nav-dark'"
+              :name="`nav-${appStore.theme}`"
               :color="
                 props.active
                   ? 'var(--van-tabbar-item-active-color) '
@@ -86,7 +86,7 @@ const containerStyles = computed(() => {
   return styles;
 });
 
-const tabberOption: LayoutNavProps['option'] = [
+const tabberOption = ref<LayoutNavProps['option']>([
   {
     title: '主页',
     name: 'nav-home',
@@ -115,9 +115,11 @@ const tabberOption: LayoutNavProps['option'] = [
       name: 'Theme'
     }
   }
-];
+]);
 
 const handleChange = (v: TabbarItemProps['name']) => {
+  const htmlDom = document.querySelector('html') as HTMLHtmlElement;
+  htmlDom.scrollTop = 0;
   console.log('tabbar name:', v);
 };
 </script>
