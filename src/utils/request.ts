@@ -54,7 +54,7 @@ const errorHandler = (error: ResponseError) => {
     let tipMsg: string;
 
     if (response && response.__code) {
-      tipMsg = `<p>错误信息：${response.__msg}</p><p>错误码：${response.__code}</p>`;
+      tipMsg = `<p style="text-align: left;">错误信息：${response.__msg}</p><p style="text-align: left;padding-top: 10px;">错误码：${response.__code}</p>`;
     } else if (type === 'AbortError') {
       tipMsg = '用户取消请求';
     } else {

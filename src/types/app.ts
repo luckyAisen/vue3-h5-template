@@ -1,3 +1,1 @@
-import type { ConfigProviderTheme } from 'vant';
-
-export type AppTheme = ConfigProviderTheme;
+export type AppTheme = 'light' | 'dark' | 'auto';

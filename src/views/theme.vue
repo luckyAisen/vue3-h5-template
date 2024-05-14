@@ -2,11 +2,23 @@
   <div class="theme">
     <van-nav-bar title="主题切换" />
 
-    <van-cell center :title="title">
-      <template #right-icon>
-        <van-switch v-model="darkMode" @change="changeTheme" />
-      </template>
-    </van-cell>
+    <van-field
+      v-model="fieldValue"
+      is-link
+      readonly
+      label="主题"
+      placeholder="选择主题"
+      @click="showPicker = true"
+    />
+
+    <van-popup v-model:show="showPicker" round position="bottom">
+      <van-picker
+        title="选择主题"
+        :columns="columns"
+        @cancel="showPicker = false"
+        @confirm="onConfirm"
+      />
+    </van-popup>
 
     <p class="p-5 leading-7">
       Vant 4 开始支持动态主题切换和深色模式，具体使用请查看 Vant 4
@@ -33,26 +45,43 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-
 import { useAppStore } from '@/stores/modules/app';
+
+import type { AppTheme } from '@/types';
 
 defineOptions({
   name: 'ThemeIndex'
 });
 
+type Column = {
+  text: string;
+  value: AppTheme;
+};
+
 const appStore = useAppStore();
 
-const { theme } = storeToRefs(appStore);
+const fieldValue = ref('');
 
-const title = computed(() => (theme.value === 'dark' ? '切换亮色模式' : '切换深色模式'));
-
-const darkMode = ref(theme.value === 'dark');
-
-const changeTheme = () => {
-  const t = unref(theme) === 'light' ? 'dark' : 'light';
-  appStore.setTheme(t);
+const init = () => {
+  const column = columns.value.find((it) => it.value === appStore.storageColor);
+  fieldValue.value = column?.text || '';
 };
+
+const showPicker = ref(false);
+
+const columns = ref<Column[]>([
+  { text: '浅色', value: 'light' },
+  { text: '深色', value: 'dark' },
+  { text: '跟随系统', value: 'auto' }
+]);
+
+const onConfirm = ({ selectedOptions }) => {
+  showPicker.value = false;
+  fieldValue.value = selectedOptions[0].text;
+  appStore.setTheme(selectedOptions[0].value);
+};
+
+init();
 </script>
 
 <style lang="scss" scoped></style>

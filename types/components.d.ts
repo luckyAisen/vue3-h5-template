@@ -14,7 +14,10 @@ declare module 'vue' {
     VanCell: (typeof import('vant/es'))['Cell'];
     VanCellGroup: (typeof import('vant/es'))['CellGroup'];
     VanConfigProvider: (typeof import('vant/es'))['ConfigProvider'];
+    VanField: (typeof import('vant/es'))['Field'];
     VanNavBar: (typeof import('vant/es'))['NavBar'];
+    VanPicker: (typeof import('vant/es'))['Picker'];
+    VanPopup: (typeof import('vant/es'))['Popup'];
     VanSwitch: (typeof import('vant/es'))['Switch'];
     VanTabbar: (typeof import('vant/es'))['Tabbar'];
     VanTabbarItem: (typeof import('vant/es'))['TabbarItem'];

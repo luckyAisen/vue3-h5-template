@@ -1,5 +1,5 @@
 <template>
-  <div class="project-info">
+  <div class="pb-5 project-info">
     <van-nav-bar title="项目信息" />
 
     <div class="project-info-wrap">

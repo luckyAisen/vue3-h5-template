@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import { useStorage, usePreferredDark } from '@vueuse/core';
-
+import { useStorage, useColorMode } from '@vueuse/core';
 import { AppEnum } from '@/enums/appEnum';
 import { store } from '@/stores';
 
@@ -9,12 +8,16 @@ import type { AppTheme } from '@/types';
 export const useAppStore = defineStore(
   'appStore',
   () => {
-    const systemDark = usePreferredDark();
+    const { system: systemColor, store: storeColor } = useColorMode();
 
-    const theme = ref(useStorage<AppTheme>(AppEnum.APP_THEME, systemDark.value ? 'dark' : 'light'));
+    const storageColor = useStorage<AppTheme>(AppEnum.APP_THEME, storeColor.value);
+
+    const theme = computed(() => {
+      return storageColor.value == 'auto' ? systemColor.value : storageColor.value;
+    });
 
     const setTheme = (appTheme: AppTheme) => {
-      theme.value = appTheme;
+      storageColor.value = appTheme;
     };
 
     const watchTheme = () => {
@@ -30,7 +33,9 @@ export const useAppStore = defineStore(
     };
 
     return {
-      systemDark,
+      systemColor,
+      storeColor,
+      storageColor,
       theme,
       setTheme,
       watchTheme
