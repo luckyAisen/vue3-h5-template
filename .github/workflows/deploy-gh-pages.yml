@@ -1,4 +1,4 @@
-name: Deploy site by main branch to gh pages
+name: Deploy Site
 
 on:
   workflow_dispatch:
@@ -6,23 +6,43 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
+  build-and-deploy:
+    if: github.repository == 'Aisen60/vue3-h5-template'
+    runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - name: Checkout main branch code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Setup Node
+      - name: Install node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 16
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build project
         run: npm run build
@@ -31,5 +51,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          github_token: ${{ secrets.GH_PAGES }}
+          github_token: ${{ secrets.TOKEN_GH_PAGES }}
           publish_dir: ./dist
