@@ -1,4 +1,4 @@
-name: Deploy site by main branch to server
+name: Deploy Site To Server
 
 on:
   workflow_dispatch:
@@ -7,15 +7,16 @@ on:
 
 jobs:
   main-branch-deploy:
+    if: github.repository == 'Aisen60/vue3-h5-template'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          port: ${{ secrets.PORT }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          host: ${{ secrets.SECRETS_HOST }}
+          port: ${{ secrets.SECRETS_PORT }}
+          username: ${{ secrets.SECRETS_USERNAME }}
+          password: ${{ secrets.SECRETS_PASSWORD }}
           script: |
             cd /opt/cxs/vue3-h5-template
             git checkout .
