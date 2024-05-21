@@ -1,6 +1,6 @@
 {
   "name": "vue3-h5-template",
-  "version": "0.2.2",
+  "version": "0.2.5",
   "description": "A mobile development template built on Vite, Vue3, TypeScript, Vue Router, Pinia, Vant 4, etc.",
   "license": "MIT",
   "author": {
