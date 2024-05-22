@@ -22,4 +22,4 @@ jobs:
             git checkout .
             git pull origin main
             pnpm install
-            npm run build:deploy
+            npm run build
