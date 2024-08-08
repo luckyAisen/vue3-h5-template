@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@unocss/reset": "^0.58.8",
-    "@vueuse/core": "^10.9.0",
+    "@vueuse/core": "^10.11.1",
     "dayjs": "^1.11.11",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
