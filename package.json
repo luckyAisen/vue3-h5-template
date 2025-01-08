@@ -42,7 +42,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@unocss/reset": "^0.58.8",
+    "@unocss/reset": "^0.65.4",
     "@vueuse/core": "^10.9.0",
     "dayjs": "^1.11.11",
     "lodash-es": "^4.17.21",
