@@ -73,7 +73,7 @@
     "lint-staged": "^15.2.5",
     "npm-run-all2": "^6.1.2",
     "postcss": "^8.4.38",
-    "postcss-html": "^1.6.0",
+    "postcss-html": "^1.8.0",
     "postcss-mobile-forever": "^4.1.4",
     "postcss-px-to-viewport-8-plugin": "^1.2.5",
     "postcss-scss": "^4.0.9",
